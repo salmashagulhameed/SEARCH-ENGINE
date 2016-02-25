@@ -17,9 +17,9 @@ public class LinkAnalyzer{
 		{
 		doc = Jsoup.connect(url).timeout(10*1000).get(); 
 		}
-		catch(Exception e)
+		catch(Throwable e)
 		{
-			e.printStackTrace();
+			System.out.println("Check your Internet connection and tray again!!!");
 		}
 		return doc;
 	}
