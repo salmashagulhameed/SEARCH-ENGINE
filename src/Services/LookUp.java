@@ -90,7 +90,7 @@ public class LookUp {
 	}
 	public static void main(String args[]) throws SQLException, IOException
 	{
-		ArrayList<String>match=look_up("salma");
+		ArrayList<String>match=look_up("pop");
 		System.out.println(match);
 	}
 
