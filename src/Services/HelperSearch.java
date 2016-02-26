@@ -1,7 +1,5 @@
 package Services;
 
-
- 
 import java.util.List;
  
 class GoogleResults{
