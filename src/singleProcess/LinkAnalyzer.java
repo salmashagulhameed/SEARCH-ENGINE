@@ -1,4 +1,4 @@
-package Services;
+package singleProcess;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -41,7 +41,9 @@ public class LinkAnalyzer{
 	{
 		Document doc=getPage("https://www.computer.org/");
 		ArrayList<String> str=getAllLinks(doc);
-		System.out.println(str);
+		for(int i=0;i<str.size();i++)
+			System.out.println(str.get(i));
+	
 	}
 
 }

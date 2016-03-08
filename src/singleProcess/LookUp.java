@@ -1,4 +1,4 @@
-package Services;
+package singleProcess;
 
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -90,8 +90,9 @@ public class LookUp {
 	}
 	public static void main(String args[]) throws SQLException, IOException
 	{
-		ArrayList<String>match=look_up("pop");
-		System.out.println(match);
+		ArrayList<String>match=look_up("search engine");
+		for(int i=0;i<match.size();i++)
+			System.out.println(match.get(i));
 	}
 
 }

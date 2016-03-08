@@ -1,4 +1,4 @@
-package Services;
+package singleProcess;
 
 import java.sql.PreparedStatement;
 import java.sql.Statement;
@@ -12,9 +12,11 @@ import org.jsoup.nodes.Document;
 public class CrawlWeb {
 	
 	static Map<String, ArrayList<String>> graph = new HashMap<String, ArrayList<String>>();
-	
-	public static void union(ArrayList<String> tocrawl,Collection<String> all_links)
+	static ArrayList<String> tocrawl=new ArrayList<String>();
+	 private static final long startTime = System.currentTimeMillis();
+	public static int union(ArrayList<String> tocrawl,Collection<String> all_links)
 	{
+		
 		for (String link : all_links) 
         {
 			if(tocrawl.contains(link))
@@ -22,12 +24,14 @@ public class CrawlWeb {
 				else
 					tocrawl.add(link);
 		}
+	
+		return tocrawl.size();
     }
-	public static  long crawl_web(String url,int max_page) throws Throwable
+	public static  void crawl_web(String url,int max_page) throws Throwable
 	{
 		DataBase db=new DataBase();
 		long startTime = System.currentTimeMillis();
-		ArrayList<String> tocrawl=new ArrayList<String>();
+		
 		ArrayList<String> crawled=new ArrayList<String>();
 		
 		 int max_depth = 6;
@@ -35,26 +39,27 @@ public class CrawlWeb {
 		
 		tocrawl.add(url);
 		
-		int i=tocrawl.size();
-	
+		int size=tocrawl.size();
 		
 		
 		while(!(tocrawl.isEmpty()))
 		{
-			--i;
-			page=tocrawl.get(i);
-			tocrawl.remove(i);
+			--size;
+			page=tocrawl.get(size);
+		
+			tocrawl.remove(size);
 			if(!(crawled.contains(page))&&(crawled.size()<max_page))
 			{
+				System.out.println(page);
 				max_depth=max_depth-1;
-				//System.out.println(max_depth);
+				System.out.println(max_depth);
 				if(max_depth<0)
 					break;			
 		
 		Document doc=LinkAnalyzer.getPage(page);
 		Indexing.add_page_to_index(page, doc);
 		ArrayList<String> links = LinkAnalyzer.getAllLinks(doc);
-		union(tocrawl,links);
+		size=union(tocrawl,links);
 		graph.put(page, links);
 		if(!(graph.isEmpty()))
 				{
@@ -65,8 +70,9 @@ public class CrawlWeb {
 				}
 		
 		
+		
 		crawled.add(page);
-		if(i==0)
+		if(size==0)
 		{
 			break;
 		}
@@ -75,8 +81,8 @@ public class CrawlWeb {
 	}
 		long stopTime = System.currentTimeMillis();
 		long total_time = stopTime - startTime;
-		
-		return total_time;
+		System.out.println(total_time+"ms");
+
 		
 	}
 	public static void main(String args[]){

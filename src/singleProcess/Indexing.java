@@ -1,4 +1,4 @@
-package Services;
+package singleProcess;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -38,6 +38,8 @@ public class Indexing
 	        String wordCompare = word.toLowerCase();
 	        if(!list.contains(wordCompare))
 	        {
+	        	if(word==" ")
+	        		word=null;
 	            keyword.add(word);
 	        }
 	    }
@@ -49,7 +51,6 @@ public class Indexing
 	public static void add_page_to_index(String url,Document doc) 
 	{
 		ArrayList<String> words=new ArrayList<String>();
-
 		try
 		{
 		for(org.jsoup.nodes.Element meta :doc.select("meta[name=keywords]"))
@@ -57,7 +58,7 @@ public class Indexing
 			
 			words.add(meta.attr("content"));
 			words=common_word(words.toString());
-			System.out.println(words);
+			
 		}
 		}
 		catch(Exception e)
@@ -78,7 +79,7 @@ public class Indexing
 		int pos=url.indexOf(".");
 			int pos2=url.lastIndexOf(".");
 			words.add(url.substring(pos+1,pos2));
-          System.out.println(words);
+        
 	}
 		}
 		
@@ -93,9 +94,7 @@ public class Indexing
 				e.printStackTrace();
 			}
 			
-		}
-	
-		
+		}	
 	}
 	public static void add_to_index(String key,String url) throws Throwable
 	{
