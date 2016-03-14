@@ -17,9 +17,9 @@ public class DataBase {
 			conn = DriverManager.getConnection(url, "root", "root");
 			//System.out.println("conn built");
 		} catch (SQLException e) {
-			e.printStackTrace();
+			System.out.println("Database Error");
 		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
+			System.out.println("Database Error");
 		}
 	}
  

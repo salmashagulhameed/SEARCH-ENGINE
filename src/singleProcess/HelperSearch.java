@@ -2,21 +2,21 @@ package singleProcess;
 
 import java.util.List;
  
-class GoogleResults{
+public class HelperSearch{
  
     private ResponseData responseData;
     public ResponseData getResponseData() { return responseData; }
     public void setResponseData(ResponseData responseData) { this.responseData = responseData; }
     public String toString() { return "ResponseData[" + responseData + "]"; }
  
-    static class ResponseData {
+    public static class ResponseData {
         private List<Result> results;
         public List<Result> getResults() { return results; }
         public void setResults(List<Result> results) { this.results = results; }
         public String toString() { return "Results[" + results + "]"; }
     }
  
-    static class Result {
+    public static class Result {
         private String url;
         public String getUrl() { return url; }
         public void setUrl(String url) { this.url = url; }

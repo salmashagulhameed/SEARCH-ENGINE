@@ -13,8 +13,14 @@ import java.util.ArrayList;
 
 import com.google.gson.Gson;
 
+import singleProcess.DataBase;
+import singleProcess.HelperSearch;
+
+
 
 public class LookUp {
+	private static final long t0 = System.nanoTime();
+	
 	public static ArrayList<String> look_up(String keyword) throws SQLException, IOException 
 	{
 		 DataBase db = new DataBase();
@@ -23,8 +29,6 @@ public class LookUp {
 		 String sql = "select RecordID from record where keyword ='"+keyword+"'";
 		ResultSet rs = db.runSql(sql);
 	
-	
-		
 		while(rs.next())
 			id=rs.getInt("RecordID");
 		
@@ -70,10 +74,9 @@ public class LookUp {
 			String query = keyword;
 			String charset = "UTF-8";
 			
-		 
 			URL url = new URL(address + URLEncoder.encode(query, charset));
 			Reader reader = new InputStreamReader(url.openStream(), charset);
-			GoogleResults results = new Gson().fromJson(reader, GoogleResults.class);
+			HelperSearch results = new Gson().fromJson(reader, HelperSearch.class);
 		 
 			for (int m = 0; m <= 3; m++) 
 			{
@@ -90,9 +93,10 @@ public class LookUp {
 	}
 	public static void main(String args[]) throws SQLException, IOException
 	{
-		ArrayList<String>match=look_up("search engine");
+		ArrayList<String>match=look_up("computer");
 		for(int i=0;i<match.size();i++)
 			System.out.println(match.get(i));
+		 System.out.println( (System.nanoTime()- t0)+"ns");  
 	}
 
 }

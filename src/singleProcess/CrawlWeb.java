@@ -13,7 +13,7 @@ public class CrawlWeb {
 	
 	static Map<String, ArrayList<String>> graph = new HashMap<String, ArrayList<String>>();
 	static ArrayList<String> tocrawl=new ArrayList<String>();
-	 private static final long startTime = System.currentTimeMillis();
+	 private static final long startTime = System.nanoTime();
 	public static int union(ArrayList<String> tocrawl,Collection<String> all_links)
 	{
 		
@@ -79,18 +79,13 @@ public class CrawlWeb {
 			}
 			
 	}
-		long stopTime = System.currentTimeMillis();
-		long total_time = stopTime - startTime;
-		System.out.println(total_time+"ms");
-
-		
+		System.out.println((System.nanoTime()-startTime)+"ns");
 	}
 	public static void main(String args[]){
-		int i=5;
 		try {
-			CrawlWeb.crawl_web("https://www.computer.org/",i);
+			CrawlWeb.crawl_web("https://www.computer.org/",5);
 		} catch (Throwable e) {
-			// TODO Auto-generated catch block
+			
 			e.printStackTrace();
 		}
 	}
